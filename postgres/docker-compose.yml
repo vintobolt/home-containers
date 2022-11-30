@@ -1,0 +1,24 @@
+services:
+  mypostgres:
+    image: postgres:latest
+    container_name: postgres-latest
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - traefik_proxy
+    labels:
+      - "traefik.enable=false"
+
+volumes:
+  db-data:
+    driver: local
+
+networks:
+  traefik_proxy:
+    external: true

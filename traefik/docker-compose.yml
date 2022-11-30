@@ -1,0 +1,22 @@
+services:
+  traefik:
+    image: traefik:v2.9
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - "no-new-privileges:true"
+    networks:
+      - traefik_proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./conf/traefik.yaml:/etc/traefik/traefik.yaml
+      - ./conf.d:/etc/traefik/conf.d
+      - ./certs:/etc/traefik/certs:ro
+
+networks:
+  traefik_proxy:
+    external: true

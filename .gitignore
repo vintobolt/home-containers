@@ -1,0 +1,4 @@
+pgadmin-docker/pgadmin4
+.vscode
+qbittorrent/config
+*.pem
