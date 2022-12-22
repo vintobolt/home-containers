@@ -8,7 +8,9 @@ services:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - traefik_proxy
+      traefik_proxy:
+      minikube:
+        ipv4_address: 192.168.49.254
     restart: unless-stopped
     mem_limit: 2048m
     labels:
@@ -23,10 +25,13 @@ services:
       - "traefik.http.routers.jenkins-secure.service=jenkins"
       - "traefik.http.services.jenkins.loadbalancer.server.port=8080"
       - "traefik.docker.network=traefik_proxy"
-  
+
+
 volumes:
   jenkins_home:
 
 networks:
   traefik_proxy:
+    external: true
+  minikube:
     external: true
